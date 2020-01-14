@@ -3,14 +3,21 @@ alert('campominato');
 
 //step 1 : il pc deve generare 16 numeri random da 1 a 100
 var randomNumbersPc = [];
-for( i=1; i<=16; i++){
+for( i=1; i<=16; i++) {
   numberCreate = getRandom (1, 100);
   randomNumbersPc.push(numberCreate);
 }
 console.log(randomNumbersPc);
-function getRandom (min, max){
+function getRandom (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   var random = Math.floor(Math.random() * (max - min + min) + 1);
   return random;
 }
+//step 2 chiedere 84 numeri all'utente
+var listUser = [];
+for (var i = 1; i <= 84; i++) {
+  numberUser = prompt('inserisci 84 numeri differenti da 1 a 100');
+  listUser.push(numberUser);
+}
+console.log(listUser);
