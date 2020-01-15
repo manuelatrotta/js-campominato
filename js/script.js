@@ -3,17 +3,15 @@ alert('campominato');
 
 //step 1 : il pc deve generare 16 numeri random da 1 a 100
 var randomNumbersPc = [];
-var arrayUserTries = [];
-var findNumber = false;
-var maxTries = 84;
 
-while (randomNumbersPc.length < 16) {
+while (randomNumbersPc.length <= 16) {
   var cpuRandomNumber = getRandom(1, 100);
   if(randomNumbersPc.includes(cpuRandomNumber) == false) {
     randomNumbersPc.push(cpuRandomNumber);
   }
 }
-console.log(randomNumbersPc);
+console.log(randomNumbersPc.sort());
+
 function getRandom (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -28,9 +26,37 @@ function checkBomb(arrayToCheck, numberToCheck) {
   }
   return false;
 }
-
-var counte = 0;
-while(arrayUserTries.length < maxTries && checkBomb(arrayRandom, userTry) == false){
-  var userTry = parseInt(prompt('inserisci un numero da 1 a 100'));
-  //controllo che sia una bomba
+//funzione che controlla che un numero sia in un certo range
+function checkRangeNumber(min, max, number) {
+  var result = false;
+  if(number >= min && number <= max) {
+    result = true;
+  }
+  return result;
 }
+
+var arrayUserTries = [];
+var counte = 0;
+message = 'you win';
+var findNumber = false;
+var maxTries = 4;
+
+while (arrayUserTries.length < maxTries && findNumber == false) {
+  var userNumber = false;
+  do{
+    var userNumber = parseInt(prompt('inserisci un numero da 1 a 100'));
+    console.log('numero inserito' + checkRangeNumber(1, 100, userNumber));
+  } while(checkRangeNumber(1, 100, userNumber) == false)
+  if(checkBomb(arrayUserTries, userNumber) == false) {
+    arrayUserTries.push(userNumber);
+    // se il numero dell'utente è presente nelle numberBomb hai perso
+    if(checkBomb(randomNumbersPc, userNumber) == true){
+      message = 'hai perso';
+      userNumber = true;
+    } else {
+      counte++;
+    }
+  }
+}
+console.log(arrayUserTries);
+console.log(message + ' ' + counte);
